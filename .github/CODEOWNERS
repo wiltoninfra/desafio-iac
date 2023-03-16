@@ -1,0 +1,7 @@
+
+
+## Definir usuários ou equipes que são responsáveis pelo código do repositório.
+## Documentação https://docs.github.com/pt/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global rule:
+*           @wiltoninfra
