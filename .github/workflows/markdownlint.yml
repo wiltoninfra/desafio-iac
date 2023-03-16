@@ -9,7 +9,7 @@ on:
       - "**/*.md"
 
 jobs:
-  lint:
+  lint-markdown:
 
     runs-on: ubuntu-latest
 
