@@ -5,14 +5,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5Dialect
     properties:
       hibernate:
         show_sql: true
         format_sql: true
   datasource:
-    url: ${MYSQL_DB_HOST}
-    username: ${MYSQL_DB_USER}
-    password: ${MYSQL_DB_PASS}
+    url: jdbc:mysql://database:3306/letscode
+    username: lets
+    password: codepass2023
 
 security:
   oauth2:

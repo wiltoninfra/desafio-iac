@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  database:
+    container_name: database
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+      - MYSQL_DATABASE=letscode
+      - MYSQL_USER=lets
+      - MYSQL_PASSWORD=codepass2023
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - database-data:/var/lib/mysql
+
+  backend:
+    container_name: backend
+    #image: 
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    ports:
+      - 8087:8080
+    restart: always   
+
+volumes:
+  database-data:
