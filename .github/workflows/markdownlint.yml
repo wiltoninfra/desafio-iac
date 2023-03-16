@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675 #@v2
+    - uses: actions/checkout@v3
     - name: Use Node.js
-      uses: actions/setup-node@56899e050abffc08c2b3b61f3ec6a79a9dc3223d #@v1
+      uses: actions/setup-node@v3
       with:
-        node-version: 12.x
+        node-version: 16.x
     - name: Run Markdownlint
       run: |
-        npm i -g markdownlint-cli@0.22.0
+        npm i -g markdownlint-cli@0.27.0
         markdownlint "**/*.md"
