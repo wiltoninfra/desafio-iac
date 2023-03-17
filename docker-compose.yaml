@@ -27,5 +27,17 @@ services:
       - 8087:8080
     restart: always   
 
+  frontend:
+    container_name: frontend
+    #image: 
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - 4200:80
+    restart: always   
+
 volumes:
   database-data:
