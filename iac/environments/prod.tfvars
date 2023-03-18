@@ -1,6 +1,6 @@
 ## Tags obrigatórias
 project     = "letscode"
-environment = "developer"
+environment = "production"
 
 # Autenticação para uso local
 aws_region = "us-east-1"
