@@ -6,7 +6,7 @@ ARG MYSQL_DB_PASS
 
 WORKDIR /usr/src/app/
 COPY ./app /usr/src/app/
-# Compile and package the application to an executable JAR
+
 RUN mvn package 
 
 # For Java 11, 
