@@ -1,0 +1,14 @@
+name: CD/K8S Deploy
+
+on:
+ push:
+   branches: [main]
+   paths:
+     - 'k8s/**'
+
+jobs:
+  deploy-k8s-terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./k8s
