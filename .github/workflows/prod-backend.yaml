@@ -1,4 +1,4 @@
-name: ackend Build/Test
+name: CD/Backend Deploy
 
 on:
  push:
