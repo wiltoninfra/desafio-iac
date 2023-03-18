@@ -1,4 +1,4 @@
-name: ci-iac-terraform build/test
+name: ci-iac-terraform validate
 
 on:
   pull_request:

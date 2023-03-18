@@ -18,11 +18,12 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Bump version and push tag
-      uses: RueLaLa/auto-tagger@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_PR_NUMBER: ${{ github.event.number }}
+    - uses: Klemensas/action-autotag@stable
+      with:
+        GITHUB_TOKEN: "${{ secrets.CI_GITHUB_TOKEN }}"
+        tag_suffix: "v"
+        version: "${{ steps.previous_step.outputs.version }}"
+        changelog_structure: "**{{messageHeadline}}** {{author}}\n"
 
     - name: Set up JDK 17
       uses: actions/setup-java@v3
