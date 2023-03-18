@@ -8,6 +8,7 @@ COPY ./nginx.conf /
 RUN npm install
 RUN npm install -g @angular/cli
 RUN ng build
+
 #CMD ["ng","serve","--host", "0.0.0.0"]
 
 #stage 2

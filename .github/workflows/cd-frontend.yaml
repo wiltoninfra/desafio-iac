@@ -41,6 +41,7 @@ jobs:
     - name: Teste Software
       run: ng build --watch --configuration development
 
+
  ImageTest:
   runs-on: ubuntu-latest
   needs: build
