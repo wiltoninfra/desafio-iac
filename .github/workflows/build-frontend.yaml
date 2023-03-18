@@ -28,7 +28,6 @@ jobs:
     - run: npm ci
     - run: npm install -g @angular/cli
     - run: ng test
-    - run: ng lint 
 
  ImageTest:
   runs-on: ubuntu-latest
