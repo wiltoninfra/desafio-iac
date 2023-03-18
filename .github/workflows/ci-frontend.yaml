@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm install -g @angular/cli
-    - run: ng test
+    - run: ng test --watch=false --browsers=ChromeHeadless
 
  ImageTest:
   runs-on: ubuntu-latest
