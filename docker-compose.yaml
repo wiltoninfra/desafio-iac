@@ -10,34 +10,59 @@ services:
       - MYSQL_USER=lets
       - MYSQL_PASSWORD=codepass2023
     restart: always
+    command: mysqld --init-file="/tmp/database/init.sql"
     ports:
       - 3306:3306
     volumes:
       - database-data:/var/lib/mysql
+      - ./utils/init.sql:/tmp/database/init.sql
+    networks:
+      - lets-network        
 
   backend:
     container_name: backend
+    hostname: backend
     #image: 
     build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      SPRING_APPLICATION_JSON: '{
+          "spring.datasource.url"  : "jdbc:mysql://database:3306/letscode",
+          "spring.datasource.username" : "lets",
+          "spring.datasource.password" : "codepass2023"
+        }'      
     depends_on:
       - database
+    links:
+      - database        
+    networks:
+      - lets-network       
     ports:
       - 8087:8080
     restart: always   
 
   frontend:
     container_name: frontend
+    hostname: frontend
     #image: 
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    depends_on:
-      - backend
+    environment:
+      API_URL: http://localhost:8080 
+    networks:
+      - lets-network         
+    links:
+      - backend    
+    expose:
+     - "4200"
     ports:
-      - 4200:80
+      - 4200:4200
     restart: always   
 
 volumes:
   database-data:
+
+networks:
+  lets-network:  
