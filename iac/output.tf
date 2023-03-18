@@ -1,27 +1,67 @@
 output "vpc_id" {
-  description = "The ID of the VPC"
+  description = "ID da VPC"
   value       = module.vpc.vpc_id
 }
 
 output "vpc_cidr_block" {
-  description = "The CIDR block of the VPC"
+  description = "Bloco CIDR da VPC"
   value       = module.vpc.vpc_cidr_block
 }
 
-output "subnet_private_id" {
-  value       = module.vpc.subnet_private_id
-  description = "IDs Subnets private"
-}
-
-output "subnet_public_id" {
-  value       = module.vpc.subnet_public_id
-  description = "IDs Subnets public"
-}
 
 output sg_database {
+  description = "Grupos de segurança privado porta banco de dados"    
   value       = module.sg.sg_database
-  description = "description"
 }
 
+output sg_api {
+  description = "Grupos de segurança privado porta da api"    
+  value       = module.sg.sg_api
+}
+
+output sg_https_private {
+  description = "Grupos de segurança privado porta https"  
+  value       = module.sg.sg_https_private
+}
+
+output sg_ssh_private {
+  description = "Grupos de segurança privado porta ssh"
+  value       = module.sg.sg_ssh_private
+}
+
+output sg_k8s_workloads {
+  description = "Grupos de segurança dos workloads kubernetes"
+  value       = module.sg.sg_k8s_workloads
+}
+
+output "cluster_name" {
+  description = "Nome do cluster"
+  value       = module.eks.cluster_name
+}
+
+output "cluster_endpoint" {
+  description = "Endpoint para o servidor API server do Kubernetes"
+  value       = module.eks.cluster_endpoint
+}
+
+output "cluster_id" {
+  description = "ID do cluster"
+  value       = module.eks.cluster_id
+}
+
+output "cluster_platform_version" {
+  description = "Versão da plataforma para o cluster"
+  value       = module.eks.cluster_platform_version
+}
+
+output "cluster_status" {
+  description = "Status do cluster EKS `CREATING`, `ACTIVE`, `DELETING`, `FAILED`"
+  value       = module.eks.cluster_status
+}
+
+output "cluster_addons" {
+  description = "Complementos do cluster EKS ativados"
+  value       = module.eks.cluster_addons
+}
 
 
