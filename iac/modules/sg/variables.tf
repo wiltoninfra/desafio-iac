@@ -1,47 +1,35 @@
+variable vpc_id {
+  type        = string
+  default     = ""
+  description = "VPC ID"
+}
+
+variable vpc_cidr {
+  type        = string
+  default     = ""
+  description = "CIDR VPC"
+}
+
 variable ingress_db_port {
   type        = number
   default     = 3306
-  description = "description"
+  description = "Port access mysql server port default"
 }
 
 variable ingress_api_port {
   type        = number
   default     = 8080
-  description = "description"
+  description = "Port API"
 }
 
 variable ingress_https_port {
   type        = number
   default     = 443
-  description = "description"
+  description = "HTTPS port default"
 }
 
 variable ingress_ssh_port {
   type        = number
   default     = 22
-  description = "description"
-}
-
-variable ingress_db_cidr {
-  type        = string
-  default     = ""
-  description = "description"
-}
-
-variable ingress_api_cidr {
-  type        = string
-  default     = ""
-  description = "description"
-}
-
-variable ingress_https_cidr {
-  type        = string
-  default     = ""
-  description = "description"
-}
-
-variable ingress_ssh_cidr {
-  type        = string
-  default     = ""
-  description = "description"
+  description = "SSH Port default"
 }

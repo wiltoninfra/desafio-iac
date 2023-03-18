@@ -4,6 +4,12 @@ variable "name" {
   description = "Name resource RDS"
 }
 
+variable "project" {
+  type        = string
+  default     = "default"
+  description = "Project name"
+}
+
 variable "db_instance_type" {
   type        = string
   default     = "default-db"
@@ -36,7 +42,7 @@ variable "engine" {
 
 variable "engine_version" {
   type        = string
-  default     = "5.7"
+  default     = "8.0"
   description = "Version Engine DB"
 }
 
@@ -48,7 +54,7 @@ variable "username" {
 
 variable "parameter_group_name" {
   type        = string
-  default     = "default.mysql5.7"
+  default     = "default.mysql8.0"
   description = "DB parameter group resource"
 }
 
@@ -82,9 +88,5 @@ variable "security_group_ids" {
   description = "IDS Security groups VPC"
 }
 
-variable "subnet_private_db" {
-  type        = list
-  default     = []
-  description = "ID Subnet private for VPC"
-}
+variable "subnet_private_ids" { }
 
