@@ -11,9 +11,9 @@ spring:
         show_sql: true
         format_sql: true
   datasource:
-    url: jdbc:mysql://database:3306/letscode
-    username: lets
-    password: codepass2023
+    url: ${MYSQL_DB_HOST}
+    username: ${MYSQL_DB_USER}
+    password: ${MYSQL_DB_PASS}
 
 security:
   oauth2:
