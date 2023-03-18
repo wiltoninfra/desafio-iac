@@ -1,4 +1,4 @@
-name: CD/IAC Deploy
+name: cd-iac-terraform
 
 on:
  push:

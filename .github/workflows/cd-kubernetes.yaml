@@ -1,4 +1,4 @@
-name: CD/K8S Deploy
+name: cd-kubernetes
 
 on:
  push:
@@ -14,7 +14,7 @@ jobs:
         working-directory: ./k8s
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: "Install terraform"
         uses: hashicorp/setup-terraform@v2
 

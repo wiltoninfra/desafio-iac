@@ -1,4 +1,4 @@
-name: CI/Markdownlint
+name: ci-markdownlint
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: CI/IAC Build/Test
+name: ci-iac-terraform build/test
 
 on:
   pull_request:

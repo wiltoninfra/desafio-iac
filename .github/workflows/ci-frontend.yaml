@@ -1,4 +1,4 @@
-name: CI Frontend Build/Test
+name: ci-frontend build/test
 
 on:
  pull_request:
