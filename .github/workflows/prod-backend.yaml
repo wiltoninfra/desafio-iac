@@ -1,4 +1,4 @@
-name: ackend Build/Test
+name: Backend Deploy
 
 on:
  push:
