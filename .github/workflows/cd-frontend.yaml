@@ -3,8 +3,6 @@ name: cd-frontend-build-deploy
 on:
  push:
    branches: [main]
- pull_request:
-   branches: [feature/*, bugfix/*]
    paths:
      - 'frontend/**'
 

@@ -3,8 +3,6 @@ name: cd-backend-build-deploy
 on:
  push:
    branches: [main]
- pull_request:
-   branches: [feature/*, bugfix/*]
    paths:
      - 'backend/**'
 
