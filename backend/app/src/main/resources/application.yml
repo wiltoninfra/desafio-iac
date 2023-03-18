@@ -5,6 +5,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5Dialect
     properties:
       hibernate:
         show_sql: true
