@@ -1,9 +1,9 @@
 name: ci-frontend build/test
 
 on:
- pull_request:
-   branches: [feature/*, bugfix/*]
-   paths:
+  pull_request:
+    branches: [main]
+    paths:
      - 'frontend/**'
 
 jobs:

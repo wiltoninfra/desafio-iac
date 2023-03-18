@@ -2,7 +2,7 @@ name: ci-iac-terraform build/test
 
 on:
   pull_request:
-    branches: [feature/*, bugfix/*]
+    branches: [main]
     paths:
       - 'iac/**'
 

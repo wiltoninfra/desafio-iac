@@ -1,10 +1,10 @@
 name: ci-backend build/test
 
 on:
- pull_request:
-   branches: [feature/*, bugfix/*]
-   paths:
-     - 'backend/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/**'
 
 jobs:
  build:
