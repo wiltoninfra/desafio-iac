@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://backend:8080',
+  apiURL: 'http://localhost:8087',
   clientId: 'my-angular-app',
   clientSecret: '@321',
   obterTokenUrl: '/oauth/token'
 };
-
+ 
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
