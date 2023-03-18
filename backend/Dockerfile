@@ -18,6 +18,4 @@ WORKDIR /opt/app
 
 COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app/
 
-EXPOSE 8080
-
-ENTRYPOINT ["java","-jar","letscodebyada-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar",${JAR_FILE}]
