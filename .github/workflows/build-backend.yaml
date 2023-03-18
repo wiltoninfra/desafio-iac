@@ -1,8 +1,6 @@
-name: ackend Build/Test
+name: Backend Build/Test
 
 on:
- push:
-   branches: [main]
  pull_request:
    branches: [feature/*, bugfix/*]
    paths:
@@ -61,7 +59,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.CI_GITHUB_TOKEN }}
 
     - name: Build Docker image backend
       run: |
