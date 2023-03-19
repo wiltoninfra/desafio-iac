@@ -1,4 +1,4 @@
-FROM maven:3.6.3 AS maven
+FROM maven:3.8 AS maven
 
 ARG MYSQL_DB_HOST
 ARG MYSQL_DB_USER
@@ -9,8 +9,7 @@ COPY ./app /usr/src/app/
 
 RUN mvn package 
 
-# For Java 11, 
-FROM adoptopenjdk/openjdk11:armv7l-ubuntu-jre-11.0.18_10
+FROM --platform=linux/arm64 arm64v8/openjdk
 
 ARG JAR_FILE=letscodebyada-0.0.1-SNAPSHOT.jar
 
@@ -18,4 +17,6 @@ WORKDIR /opt/app
 
 COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app/
 
-ENTRYPOINT ["java","-jar",${JAR_FILE}]
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","letscodebyada-0.0.1-SNAPSHOT.jar"]
