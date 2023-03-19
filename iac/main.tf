@@ -1,7 +1,7 @@
 # Busca dados sobre zonas de disponibilidade
 data "aws_availability_zones" "available" {}
 
-# Contatena valores para gerar o nome do cluster utilizando caracteres de texto randomico
+# Concatena valores para gerar o nome do cluster utilizando caracteres de texto randomico
 locals {
   cluster_name = "${var.project}-${random_string.suffix.result}"
 }

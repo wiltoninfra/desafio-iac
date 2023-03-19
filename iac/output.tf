@@ -8,6 +8,20 @@ output "vpc_cidr_block" {
   value       = module.vpc.vpc_cidr_block
 }
 
+output "db_endpoint" {
+  description = "Endpoint banco de dados"    
+  value = module.rds.db_endpoint
+}
+
+output "db_user" {
+  description = "Usuário banco de dados"    
+  value = module.rds.db_user
+}
+
+#output "db_pass" {
+#  description = "Senha banco de dados"    
+#  value = module.rds.db_pass
+#}
 
 output sg_database {
   description = "Grupos de segurança privado porta banco de dados"    

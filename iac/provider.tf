@@ -13,7 +13,5 @@ locals {
 }
 
 terraform {
-  backend "local" {
-    path = "./terraform.tfstate"
-  }
+  backend "s3" {}
 }

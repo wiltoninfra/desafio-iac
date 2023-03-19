@@ -7,17 +7,20 @@ on:
      - 'iac/**'
      
 jobs:
-  terraform-checklist:
+  terraform-apply:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./iac
     env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
       TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY }}
       TF_VAR_secret_key: ${{ secrets.AWS_SECRET_KEY }}
       TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-      TF_LOG: trace
+      TF_LOG: info
 
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +32,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -backend-config=environments/backend.dev.hcl -var-file=environments/dev.tfvars
 
       - name: Terraform Validate
         id: validate
@@ -37,7 +40,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file=environments/dev.tfvars -lock=false -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
+        run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
 
       - name: Save Plan JSON
         run: echo '${{ steps.show.outputs.stdout }}' > plan.json
@@ -50,22 +53,56 @@ jobs:
         with:
           github-token: ${{ secrets.CI_GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization 🚀 \`${{ steps.init.outcome }}\`
-            #### Terraform Validation ✅ \`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📜 \`${{ steps.plan.outcome }}\`
+            // 1. Retrieve existing bot comments for the PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const botComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
+            })
+
+            // 2. Prepare format of the comment
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            <details><summary>Validation Output</summary>
+
+            \`\`\`\n
+            ${{ steps.validate.outputs.stdout }}
+            \`\`\`
+
+            </details>
+
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
             <details><summary>Show Plan</summary>
+
             \`\`\`\n
             ${process.env.PLAN}
             \`\`\`
+
             </details>
+
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+
+            // 3. If we have a comment, update it, otherwise create a new one
+            if (botComment) {
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+            }
 
       - name: Terraform Apply
         id: apply
