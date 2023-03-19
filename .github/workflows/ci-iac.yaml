@@ -134,6 +134,8 @@ jobs:
 
   security-scans:
     runs-on: ubuntu-latest
+    env:
+      TF_ROOT: ./iac
     needs: terraform-checklist
     steps:
     - name: Check out repository
