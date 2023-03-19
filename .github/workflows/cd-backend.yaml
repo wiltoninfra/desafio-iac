@@ -18,20 +18,14 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Bump version and push tag
-      id: tag_version
-      uses: miguelfito/github-bump-and-tag-action@v1
-      with:
-        github_token: "${{ secrets.CI_GITHUB_TOKEN }}"
-
     - name: Create a GitHub release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: "${{ secrets.CI_GITHUB_TOKEN }}"
       with:
-        tag_name: ${{ steps.tag_version.outputs.new_tag }}
-        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-        body: ${{ steps.tag_version.outputs.changelog }}
+        tag_name: ${{ steps.build.outputs.new_tag }}
+        release_name: Release ${{ steps.build.outputs.new_tag }}
+        body: ${{ steps.build.outputs.changelog }}
 
     - name: Set up JDK 17
       uses: actions/setup-java@v3
@@ -76,5 +70,5 @@ jobs:
       with:
         context: ./backend
         push: false
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ steps.build.outputs.changelog }}
         labels: ${{ steps.meta.outputs.labels }} 
