@@ -17,7 +17,7 @@ jobs:
       TF_VAR_secret_key: ${{ secrets.AWS_SECRET_KEY }}
       TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-      TF_LOG: trace
+      TF_LOG: info
 
     steps:
       - uses: actions/checkout@v3
