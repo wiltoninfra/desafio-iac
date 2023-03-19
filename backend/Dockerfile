@@ -9,7 +9,7 @@ COPY ./app /usr/src/app/
 
 RUN mvn package 
 
-## Multi step
+## Multi step docker 
 FROM --platform=linux/arm64 arm64v8/openjdk
 
 ARG JAR_FILE=letscodebyada-0.0.1-SNAPSHOT.jar
