@@ -10,6 +10,7 @@ RUN npm install -g @angular/cli
 RUN ng build
 #CMD ["ng","serve","--host", "0.0.0.0"]
 
+## Docker file multi step
 FROM nginx:alpine
 COPY --from=node /app/dist/letscodebyada-app /usr/share/nginx/html
 COPY --from=node /nginx.conf /etc/nginx/conf.d/default.conf
