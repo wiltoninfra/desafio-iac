@@ -122,7 +122,6 @@ jobs:
       TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
       TF_LOG: info
-      TF_ROOT: ./
       
     needs: terraform-checklist
     steps:
@@ -137,7 +136,7 @@ jobs:
         continue-on-error: true
 
       - name: Terraform Plan
-        run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
+        run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan
         continue-on-error: true
 
       - name: Terraform show
@@ -197,7 +196,7 @@ jobs:
       TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
       TF_LOG: info
-      TF_ROOT: ./            
+          
     needs: terraform-checklist
     steps:
     - name: Check out repository
@@ -212,7 +211,7 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
+      run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan
 
     - name: Run Checkov action
       id: checkov
