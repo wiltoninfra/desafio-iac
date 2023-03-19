@@ -5,6 +5,7 @@ on:
     paths:
       - "**/*.md"
   pull_request:
+    branches: [main]  
     paths:
       - "**/*.md"
 
