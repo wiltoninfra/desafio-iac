@@ -44,7 +44,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
+        run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
 
       - name: Save Plan JSON
         run: echo '${{ steps.show.outputs.stdout }}' > plan.json
@@ -137,7 +137,7 @@ jobs:
         continue-on-error: true
 
       - name: Terraform Plan
-        run: terraform plan -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
+        run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
         continue-on-error: true
 
       - name: Terraform show
@@ -212,7 +212,7 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
+      run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
 
     - name: Run Checkov action
       id: checkov
