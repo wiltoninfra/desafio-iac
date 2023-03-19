@@ -71,8 +71,8 @@ jobs:
 
   finops-costs:
     runs-on: ubuntu-latest
-    #env:
-    #  TF_ROOT: ./
+    env:
+      TF_ROOT: ./iac
     needs: terraform-checklist
     steps:
     
