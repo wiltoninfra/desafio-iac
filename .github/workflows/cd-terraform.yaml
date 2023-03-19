@@ -42,6 +42,10 @@ jobs:
         id: plan
         run: terraform plan -lock=false -var-file=environments/dev.tfvars -out plan.tfplan | grep -E '(^.*[#~+-] .*|^[[:punct:]]|Plan)'
 
+      - name: Terraform show
+        run: terraform show -json plan.tfplan > plan.json
+        continue-on-error: true
+
       - name: Save Plan JSON
         run: echo '${{ steps.show.outputs.stdout }}' > plan.json
 
