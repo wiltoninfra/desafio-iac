@@ -15,18 +15,21 @@ jobs:
 
   steps:
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
-    - name: Create a GitHub release
+    - name: Generate release tag
+      id: generate_release_tag
+      uses: amitsingh-007/next-release-tag@v1.0.0
+      with:
+        github_token: "${{ secrets.CI_GITHUB_TOKEN }}"
+        tag_prefix: ''
+
+    - name: Create Release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: "${{ secrets.CI_GITHUB_TOKEN }}"
       with:
-        tag_name: ${{ steps.build.outputs.new_tag }}
-        release_name: Release ${{ steps.build.outputs.new_tag }}
-        body: ${{ steps.build.outputs.changelog }}
-
+        tag_name: ${{ steps.generate_release_tag.outputs.release_tag }}
+        release_name: Release ${{ steps.generate_release_tag.outputs.release_tag }}
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
