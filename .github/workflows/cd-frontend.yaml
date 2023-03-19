@@ -1,14 +1,16 @@
 name: cd-frontend-build-deploy
 
 on:
- push:
-   branches: [main]
-   paths:
+  pull_request:
+    branches: [main]
+    paths:
      - 'frontend/**'
 
 jobs:
- Test:
+
+ build:
   runs-on: ubuntu-latest
+
   defaults:
     run:
       working-directory: ./frontend/app
@@ -19,45 +21,46 @@ jobs:
 
   steps:
     - uses: actions/checkout@v3
-
-    - name: Bump version and push tag
-      uses: RueLaLa/auto-tagger@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-        GITHUB_PR_NUMBER: ${{ github.event.number }}
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Instalando dependencias
-      run: npm install   
-
-    - name: Intalando angular/cli
-      run: npm install -g @angular/cli
-
-    - name: Teste Software
-      run: ng build --watch --configuration development
-
+    - run: npm ci
+    - run: npm install -g @angular/cli
+    - run: ng test --watch=false --browsers=ChromeHeadless
+      continue-on-error: true
 
  ImageTest:
   runs-on: ubuntu-latest
-  needs: Test
+  permissions:
+    contents: read
+    packages: write  
+  needs: build
   defaults:
     run:
       working-directory: ./frontend
 
   steps:
     - uses: actions/checkout@v3
+
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.CI_GITHUB_TOKEN }}
 
-    - name: Build/Push Docker image frontend
-      run: |
-            docker build . --tag ghcr.io/wiltoninfra/frontend-spring:latest
-            docker run ghcr.io/wiltoninfra/frontend-spring:latest
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: ghcr.io/wiltoninfra/frontend
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: ./frontend
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
