@@ -1,3 +1,4 @@
+#FROM node:19 as node
 FROM node:16 as node
 
 WORKDIR /app

@@ -43,7 +43,7 @@ jobs:
 
   steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     
@@ -57,8 +57,11 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.CI_GITHUB_TOKEN }}
 
+    - run: ls -lsa
+    
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
+        context: .
         push: true
-        tags: wiltoninfra/frontend-app:latest
+        tags: wiltoninfra/desafio-iac/frontend-app:latest
