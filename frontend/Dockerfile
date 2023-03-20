@@ -1,3 +1,4 @@
+## Maximo da versão suportada
 FROM node:16 as node
 
 WORKDIR /app
