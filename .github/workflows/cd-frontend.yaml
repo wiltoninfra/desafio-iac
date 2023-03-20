@@ -33,13 +33,7 @@ jobs:
 
  ImageTest:
   runs-on: ubuntu-latest
-  permissions:
-    contents: read
-    packages: write  
   needs: build
-  defaults:
-    run:
-      working-directory: ./frontend
 
   steps:
     - uses: actions/checkout@v3
@@ -62,7 +56,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
-        context: .
-        file: ./Dockerfile
+        context: frontend
+        file: frontend/Dockerfile
         push: true
         tags: wiltoninfra/desafio-iac/frontend-app:latest
