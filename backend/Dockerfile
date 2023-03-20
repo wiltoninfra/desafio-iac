@@ -1,9 +1,5 @@
 FROM maven:3.8 AS maven
 
-ARG MYSQL_DB_HOST
-ARG MYSQL_DB_USER
-ARG MYSQL_DB_PASS
-
 WORKDIR /usr/src/app/
 
 COPY ./app /usr/src/app/

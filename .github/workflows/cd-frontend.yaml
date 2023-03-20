@@ -62,4 +62,4 @@ jobs:
         context: frontend
         file: frontend/Dockerfile
         push: true
-        tags: wiltoninfra/desafio-iac/frontend-app:latest
+        tags: ghcr.io/wiltoninfra/desafio-iac/frontend-app:latest
