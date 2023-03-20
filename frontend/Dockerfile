@@ -1,12 +1,9 @@
 FROM node:16 as node
 
 WORKDIR /app
-
 COPY ./app .
 COPY ./nginx.conf /
-RUN npm install
-RUN npm install -g @angular/cli
-RUN ng build
+RUN npm install && npm install -g @angular/cli && ng build
 
 ## Docker multi step
 FROM nginx:alpine
