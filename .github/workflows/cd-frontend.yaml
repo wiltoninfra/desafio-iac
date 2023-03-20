@@ -33,13 +33,8 @@ jobs:
 
  ImageTest:
   runs-on: ubuntu-latest
-  permissions:
-    contents: read
-    packages: write  
+  
   needs: build
-  defaults:
-    run:
-      working-directory: ./frontend
 
   steps:
     - uses: actions/checkout@v3
@@ -58,10 +53,10 @@ jobs:
         password: ${{ secrets.CI_GITHUB_TOKEN }}
 
     - run: ls -lsa
-    
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
-        context: .
+        context: ./frontend/Dockerfile
         push: true
         tags: wiltoninfra/desafio-iac/frontend-app:latest
